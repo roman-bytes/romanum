@@ -7,12 +7,18 @@ import Postcard from '#app/components/ui/postcard.tsx';
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const allPosts = await prisma.note.findMany({
-
+		orderBy: {
+			createdAt: 'desc',
+		},
 		where: {
 			public: true,
 		},
 		include: {
-			owner: true,
+			owner: {
+				include: {
+					image: true,
+				},
+			},
 			images: true,
 		},
 	})
