@@ -3,14 +3,17 @@ import { json, type LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { prisma } from '#app/utils/db.server.ts'
 import { useOptionalUser } from '#app/utils/user.js'
+import Postcard from '#app/components/ui/postcard.tsx';
 
 export async function loader({ params }: LoaderFunctionArgs) {
 	const allPosts = await prisma.note.findMany({
+
 		where: {
 			public: true,
 		},
 		include: {
 			owner: true,
+			images: true,
 		},
 	})
 
@@ -28,16 +31,12 @@ export default function PostsRoute() {
 
 	return (
 		<main className="container flex h-full min-h-[400px] flex-row px-0 py-5 pb-12 md:px-8">
-			<section className="w-3/4">
+			<section className="w-3/4 pr-4">
 				{data.posts.map(post => (
-					<section key={post.id} className="my-5 rounded border">
-						<h3>{post.title}</h3>
-						<div>{post.content}</div>
-						<div>Author: {post.owner.name}</div>
-					</section>
+					<Postcard key={post.id} post={post} />
 				))}
 			</section>
-			<aside className="w-1/4 bg-white">Romanus</aside>
+			<aside className="w-1/4 bg-white rounded">Romanus</aside>
 		</main>
 	)
 }
