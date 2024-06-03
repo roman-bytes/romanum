@@ -182,7 +182,7 @@ function Document({
 	nonce,
 	theme = 'light',
 	env = {},
-	allowIndexing = true,
+	allowIndexing = false,
 }: {
 	children: React.ReactNode
 	nonce: string
@@ -242,7 +242,11 @@ function App() {
 						<div className="hidden flex-1 sm:block">{searchBar}</div>
 						<div className="flex items-center gap-10">
 							{user ? (
-								<UserDropdown />
+								<>
+									<Icon name="bell" size="lg" />
+									<Icon name="chat-bubble" size="lg" />
+									<UserDropdown />
+								</>
 							) : (
 								<Button asChild variant="default" size="lg">
 									<Link to="/login">Log In</Link>

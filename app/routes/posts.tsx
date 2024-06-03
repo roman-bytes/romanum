@@ -1,6 +1,6 @@
 import { invariantResponse } from '@epic-web/invariant'
 import { json, type LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, Link } from '@remix-run/react'
 import { prisma } from '#app/utils/db.server.ts'
 import { useOptionalUser } from '#app/utils/user.js'
 import Postcard from '#app/components/ui/postcard.tsx';
@@ -42,7 +42,11 @@ export default function PostsRoute() {
 					<Postcard key={post.id} post={post} />
 				))}
 			</section>
-			<aside className="w-1/4 bg-white rounded">Romanus</aside>
+			<aside className="w-1/4 bg-white rounded overflow-hidden">
+				<img src="/family.jpg" alt="Roman Family" />
+				<h2>Welcome to Romanum,</h2>
+				<p>Now you may be thinking what is Romanum, you can read more about what the plan and goal of Romanum is on our <Link to="/about">about page</Link></p>
+			</aside>
 		</main>
 	)
 }
