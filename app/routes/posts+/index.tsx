@@ -23,7 +23,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 		},
 	})
 
-	invariantResponse(allPosts, 'No posts exist', { status: 404 })
+	invariantResponse(allPosts, 'No posts+ exist', { status: 404 })
 
 	return json({ posts: allPosts })
 }

@@ -26,7 +26,7 @@ export default function Postcard({ post }) {
                 </div>
             </div>
             <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
-                <Link to={post.href}>
+                <Link to={`/posts/${post.id}`}>
                     <span className="absolute inset-0"/>
                     {post.title}
                 </Link>
