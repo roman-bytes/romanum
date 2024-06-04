@@ -4,7 +4,7 @@ import { Link } from '@remix-run/react'
 import { useState } from 'react'
 
 const navigation = [
-	{ name: 'Posts', href: '/posts+' },
+	{ name: 'Posts', href: '/posts' },
 	{ name: 'About', href: '/about' },
 ]
 
