@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react'
 import { getNoteImgSrc, getUserImgSrc } from "#app/utils/misc.tsx";
 
-export default function Postcard({ post }) {
+export default function Postcard({ post }: any) {
     return (
         <article
             key={post.id}

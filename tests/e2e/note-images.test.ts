@@ -117,7 +117,7 @@ function createNote() {
 	return {
 		title: faker.lorem.words(3),
 		content: faker.lorem.paragraphs(3),
-	} satisfies Omit<Note, 'id' | 'createdAt' | 'updatedAt' | 'type' | 'ownerId'>
+	} satisfies Omit<Note, 'id' | 'createdAt' | 'updatedAt' | 'type' | 'ownerId' | 'public'>
 }
 function createNoteWithImage() {
 	return {
@@ -133,7 +133,7 @@ function createNoteWithImage() {
 		},
 	} satisfies Omit<
 		Note,
-		'id' | 'createdAt' | 'updatedAt' | 'type' | 'ownerId'
+		'id' | 'createdAt' | 'updatedAt' | 'type' | 'ownerId' | 'public'
 	> & {
 		images: { create: Pick<NoteImage, 'altText' | 'blob' | 'contentType'> }
 	}
