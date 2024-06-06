@@ -31,7 +31,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function PostsRoute() {
 	const data = useLoaderData<typeof loader>()
 	const user = useOptionalUser()
-
+	console.log('user', user);
 
 	return (
 		<main className="container flex h-full min-h-[400px] flex-row px-0 py-5 pb-12 md:px-8">
