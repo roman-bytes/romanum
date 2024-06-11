@@ -99,4 +99,7 @@ export const extendedTheme = {
 	animation: {
 		'caret-blink': 'caret-blink 1.25s ease-out infinite',
 	},
+	fontFamily: {
+		tinos: ['"Tinos"'],
+	}
 } satisfies Config['theme']

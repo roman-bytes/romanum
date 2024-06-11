@@ -76,6 +76,12 @@ export const links: LinksFunction = () => {
 		//These should match the css preloads above to avoid css as render blocking resource
 		{ rel: 'icon', type: 'image/svg+xml', href: '/favicons/favicon.svg' },
 		{ rel: 'stylesheet', href: tailwindStyleSheetUrl },
+		{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+		{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: true },
+		{
+			rel: 'stylesheet',
+			href: 'https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap',
+		},
 	].filter(Boolean)
 }
 
@@ -236,27 +242,31 @@ function App() {
 			env={data.ENV}
 		>
 			<div className="flex h-screen flex-col justify-between">
-				<header className="container py-6">
-					<nav className="flex flex-wrap items-center gap-4 sm:flex-nowrap md:gap-8">
-						<Logo />
-						<div className="hidden flex-1 sm:block">{searchBar}</div>
-						<div className="flex items-center gap-10">
-							{user ? (
-								<>
-									<Icon name="bell" size="lg" />
-									<Icon name="chat-bubble" size="lg" />
-									<UserDropdown />
-								</>
-							) : (
-								<Button asChild variant="default" size="lg">
-									<Link to="/login">Log In</Link>
-								</Button>
-							)}
-						</div>
-						<div className="block w-full sm:hidden">{searchBar}</div>
-					</nav>
-				</header>
-				<MainNav />
+				{user && (
+					<>
+						<header className="container py-6">
+							<nav className="flex flex-wrap items-center gap-4 sm:flex-nowrap md:gap-8">
+								<Logo />
+								<div className="hidden flex-1 sm:block">{searchBar}</div>
+								<div className="flex items-center gap-10">
+									{user ? (
+										<>
+											<Icon name="bell" size="lg" />
+											<Icon name="chat-bubble" size="lg" />
+											<UserDropdown />
+										</>
+									) : (
+										<Button asChild variant="default" size="lg">
+											<Link to="/login">Log In</Link>
+										</Button>
+									)}
+								</div>
+								<div className="block w-full sm:hidden">{searchBar}</div>
+							</nav>
+						</header>
+						<MainNav />
+					</>
+				)}
 
 				<div className="flex-1">
 					<Outlet />

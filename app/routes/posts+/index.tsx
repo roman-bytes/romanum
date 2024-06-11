@@ -1,6 +1,7 @@
 import { invariantResponse } from '@epic-web/invariant'
 import { json, type LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData, Link } from '@remix-run/react'
+import Pagination from "#app/components/pagination.tsx";
 import Postcard from '#app/components/ui/postcard.tsx';
 import { prisma } from '#app/utils/db.server.ts'
 import { useOptionalUser } from '#app/utils/user.js'
@@ -34,6 +35,7 @@ export default function PostsRoute() {
 	console.log('user', user);
 
 	return (
+		<>
 		<main className="container flex h-full min-h-[400px] flex-row px-0 py-5 pb-12 md:px-8">
 			<section className="w-3/4 pr-4">
 				{data.posts.map(post => (
@@ -49,5 +51,7 @@ export default function PostsRoute() {
 				</div>
 			</aside>
 		</main>
-	)
+		<Pagination />
+	</>
+			)
 }

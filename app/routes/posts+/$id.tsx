@@ -52,7 +52,7 @@ export default function PostRoute() {
     console.log('SINGLE POST DATA', data);
 
     return (
-        <div className="container flex-row flex-nowrap">
+        <div className="container flex flex-row flex-nowrap">
             <div className="w-1/4">
                 <div className="flex">
                     <img
