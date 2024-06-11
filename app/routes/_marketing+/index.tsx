@@ -1,33 +1,10 @@
 import { type MetaFunction } from '@remix-run/node'
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from '#app/components/ui/tooltip.tsx'
-import { cn } from '#app/utils/misc.tsx'
-import { logos } from './logos/logos.ts'
-import {Link} from "@remix-run/react";
-import {Button} from "#app/components/ui/button.tsx";
+import { Link } from "@remix-run/react";
+import { Button } from "#app/components/ui/button.tsx";
 
 export const meta: MetaFunction = () => [{ title: 'Epic Notes' }]
 
-// Tailwind Grid cell classes lookup
-const columnClasses: Record<(typeof logos)[number]['column'], string> = {
-	1: 'xl:col-start-1',
-	2: 'xl:col-start-2',
-	3: 'xl:col-start-3',
-	4: 'xl:col-start-4',
-	5: 'xl:col-start-5',
-}
-const rowClasses: Record<(typeof logos)[number]['row'], string> = {
-	1: 'xl:row-start-1',
-	2: 'xl:row-start-2',
-	3: 'xl:row-start-3',
-	4: 'xl:row-start-4',
-	5: 'xl:row-start-5',
-	6: 'xl:row-start-6',
-}
+
 
 export default function Index() {
 	return (
@@ -38,7 +15,7 @@ export default function Index() {
 						data-heading
 						className="font-tinos mt-8 animate-slide-top text-4xl font-medium text-foreground [animation-delay:0.3s] [animation-fill-mode:backwards] md:text-5xl xl:mt-4 xl:animate-slide-left xl:text-6xl xl:[animation-delay:0.8s] xl:[animation-fill-mode:backwards]"
 					>
-						<a href="#">Romanum</a>
+						<Link to="#">Romanum</Link>
 					</h1>
 					<p
 						data-paragraph

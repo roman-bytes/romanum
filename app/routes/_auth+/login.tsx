@@ -14,10 +14,6 @@ import { CheckboxField, ErrorList, Field } from '#app/components/forms.tsx'
 import { Spacer } from '#app/components/spacer.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { login, requireAnonymous } from '#app/utils/auth.server.ts'
-import {
-	ProviderConnectionForm,
-	providerNames,
-} from '#app/utils/connections.tsx'
 import { checkHoneypot } from '#app/utils/honeypot.server.ts'
 import { useIsPending } from '#app/utils/misc.tsx'
 import { PasswordSchema, UsernameSchema } from '#app/utils/user-validation.ts'
@@ -65,13 +61,13 @@ export async function action({ request }: ActionFunctionArgs) {
 		)
 	}
 
-	const { session, remember, redirectTo } = submission.value
+	const { session, remember } = submission.value
 
 	return handleNewSession({
 		request,
 		session,
 		remember: remember ?? false,
-		redirectTo,
+		redirectTo: '/posts',
 	})
 }
 
@@ -200,7 +196,7 @@ export default function LoginPage() {
 }
 
 export const meta: MetaFunction = () => {
-	return [{title: 'Login to Epic Notes'}]
+	return [{title: 'Login to Romanum'}]
 }
 
 export function ErrorBoundary() {
