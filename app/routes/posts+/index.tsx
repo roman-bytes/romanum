@@ -60,7 +60,7 @@ export async function loader(  { request }: LoaderFunctionArgs) {
 export default function PostsRoute() {
 	const data = useLoaderData<typeof loader>()
 	const user = useOptionalUser()
-	//console.log('user', user)
+	console.log('user', user)
 	//console.log('data', data)
 
 	return (

@@ -77,7 +77,7 @@ export const links: LinksFunction = () => {
 		{ rel: 'icon', type: 'image/svg+xml', href: '/favicons/favicon.svg' },
 		{ rel: 'stylesheet', href: tailwindStyleSheetUrl },
 		{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-		{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: true },
+		{ rel: 'preconnect', href: 'https://fonts.gstatic.com' },
 		{
 			rel: 'stylesheet',
 			href: 'https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap',
@@ -207,6 +207,7 @@ function Document({
 					<meta name="robots" content="noindex, nofollow" />
 				)}
 				<Links />
+				<title>This is a title</title>
 			</head>
 			<body className="bg-background text-foreground">
 				{children}
