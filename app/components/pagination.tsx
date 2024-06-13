@@ -2,10 +2,13 @@ import {
 	ArrowLongLeftIcon,
 	ArrowLongRightIcon,
 } from '@heroicons/react/20/solid'
-import { Link, Form } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 import { Button } from '#app/components/ui/button'
 
-export default function Pagination() {
+export default function Pagination({ totalPostCount }: { totalPostCount: number }) {
+	const pagesToShow = Math.round(totalPostCount / 10);
+	const postsCount = new Array(pagesToShow).fill({})
+
 	return (
 		<Form
 			action="/posts"
@@ -27,45 +30,16 @@ export default function Pagination() {
 					</Button>
 				</div>
 				<div className="hidden md:-mt-px md:flex">
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-					>
-						1
-					</Link>
-					{/* Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" */}
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
-						aria-current="page"
-					>
-						2
-					</Link>
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-					>
-						3
-					</Link>
-
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-					>
-						4
-					</Link>
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-					>
-						5
-					</Link>
-					<Link
-						to="#"
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-					>
-						6
-					</Link>
+					{postsCount.map((_, i) => (
+						<Button
+							key={i}
+							name="intent"
+							value={i + 1}
+							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+						>
+							{i + 1}
+						</Button>
+					))}
 				</div>
 				<div className="-mt-px flex w-0 flex-1 justify-end">
 					<Button

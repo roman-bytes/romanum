@@ -48,10 +48,13 @@ export async function action({ request }: ActionFunctionArgs) {
 export async function loader(  { request }: LoaderFunctionArgs) {
 	const page = parseInt(new URL(request.url).searchParams.get('page') as string ?? 1)
 	const posts = await getAllPosts(page, 10)
+	const totalPostCount = await prisma.note.findMany({
+		where: { public: true },
+	});
 
 	invariantResponse(posts, 'No posts+ exist', { status: 404 })
 
-	return json({ posts: posts })
+	return json({ posts, totalPostCount: totalPostCount.length })
 }
 
 export default function PostsRoute() {
@@ -80,7 +83,7 @@ export default function PostsRoute() {
 					</div>
 				</aside>
 			</main>
-			<Pagination />
+			<Pagination totalPostCount={data.totalPostCount}/>
 		</>
 	)
 }
