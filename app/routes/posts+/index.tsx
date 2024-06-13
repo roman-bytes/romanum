@@ -1,33 +1,53 @@
 import { invariantResponse } from '@epic-web/invariant'
-import { json, type LoaderFunctionArgs } from '@remix-run/node'
+import {json, type LoaderFunctionArgs, type ActionFunctionArgs, redirect} from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import Pagination from '#app/components/pagination.tsx'
 import Postcard from '#app/components/ui/postcard.tsx'
 import { prisma } from '#app/utils/db.server.ts'
 import { useOptionalUser } from '#app/utils/user.js'
 
-export async function loader({ params }: LoaderFunctionArgs) {
-	async function getAllPosts(page: number, pageSize: number) {
-		const skip = (page - 1) * pageSize
-		return prisma.note.findMany({
-			where: { public: true },
-			take: pageSize,
-			skip: skip,
-			orderBy: {
-				createdAt: 'desc',
-			},
-			include: {
-				owner: {
-					include: {
-						image: true,
-					},
+async function getAllPosts(page: number, pageSize: number) {
+	const skip = (page - 1) * pageSize
+	return prisma.note.findMany({
+		where: { public: true },
+		take: pageSize,
+		skip: skip,
+		orderBy: {
+			createdAt: 'desc',
+		},
+		include: {
+			owner: {
+				include: {
+					image: true,
 				},
-				images: true,
 			},
-		})
+			images: true,
+		},
+	})
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+	const formData = await request.formData();
+	const intent = parseInt(formData.get("intent") as string);
+	const page = parseInt(new URL(request.url).searchParams.get('page') as string ?? 1)
+
+	if (page === 1 && intent === -1) {
+		return redirect('/posts')
 	}
 
-	const posts = await getAllPosts(1, 10)
+	const currentPage = page + intent;
+	const posts = await getAllPosts(currentPage, 10)
+
+	console.log('currentPage', currentPage)
+
+	invariantResponse(posts, 'No posts+ exist', { status: 404 })
+
+	return redirect(`/posts?page=${currentPage}`)
+}
+
+export async function loader(  { request }: LoaderFunctionArgs) {
+	const page = parseInt(new URL(request.url).searchParams.get('page') as string ?? 1)
+	const posts = await getAllPosts(page, 10)
 
 	invariantResponse(posts, 'No posts+ exist', { status: 404 })
 
@@ -37,12 +57,12 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function PostsRoute() {
 	const data = useLoaderData<typeof loader>()
 	const user = useOptionalUser()
-	console.log('user', user)
-	console.log('data', data)
+	//console.log('user', user)
+	//console.log('data', data)
 
 	return (
 		<>
-			<main className="container flex h-full min-h-[400px] flex-row px-0 py-5 pb-12 md:px-8">
+			<main className="container flex min-h-[400px] flex-row px-0 py-5 pb-12 md:px-8">
 				<section className="w-3/4 pr-4">
 					{data.posts.map(post => (
 						<Postcard key={post.id} post={post} />

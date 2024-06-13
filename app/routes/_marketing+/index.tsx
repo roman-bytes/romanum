@@ -4,8 +4,6 @@ import { Button } from "#app/components/ui/button.tsx";
 
 export const meta: MetaFunction = () => [{ title: 'Epic Notes' }]
 
-
-
 export default function Index() {
 	return (
 		<main className="font-poppins grid h-full place-items-center">
