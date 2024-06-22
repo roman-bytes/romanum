@@ -1,8 +1,49 @@
-import { type MetaFunction } from '@remix-run/node'
+import {invariantResponse} from "@epic-web/invariant";
+import {type LoaderFunctionArgs, type MetaFunction, redirect} from '@remix-run/node'
 import { Link } from "@remix-run/react";
 import { Button } from "#app/components/ui/button.tsx";
+import { getUserId } from '#app/utils/auth.server.ts';
+import { prisma } from '#app/utils/db.server.ts';
+import { makeTimings, time } from '#app/utils/timing.server.ts';
 
-export const meta: MetaFunction = () => [{ title: 'Epic Notes' }]
+
+export const meta: MetaFunction = () => [{ title: 'Romanum' }]
+
+export async function loader({ request }: LoaderFunctionArgs) {
+	const timings = makeTimings('root loader');
+	const userId = await time(() => getUserId(request), {
+		timings,
+		type: 'getUserId',
+		desc: 'getUserId in root',
+	});
+
+	const user = userId ? await time(
+			() => prisma.user.findUniqueOrThrow({
+				select: {
+					id: true,
+					name: true,
+					username: true,
+					image: { select: { id: true } },
+					roles: {
+						select: {
+							name: true,
+							permissions: {
+								select: { entity: true, action: true, access: true },
+							},
+						},
+					},
+				},
+				where: { id: userId },
+			}),
+			{ timings, type: 'find user', desc: 'find user in root' },
+		) : null
+
+	console.log('CURRENT USER', user);
+	if (user) {
+		return redirect('/posts');
+	}
+	return({ user });
+}
 
 export default function Index() {
 	return (

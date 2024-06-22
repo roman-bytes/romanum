@@ -44,6 +44,10 @@ export const extendedTheme = {
 			DEFAULT: 'hsl(var(--card))',
 			foreground: 'hsl(var(--card-foreground))',
 		},
+		romanumDark: {
+			DEFAULT: 'hsl(var(--romanum))',
+			foreground: 'hsl(var(--romanum-foreground))',
+		}
 	},
 	borderColor: {
 		DEFAULT: 'hsl(var(--border))',

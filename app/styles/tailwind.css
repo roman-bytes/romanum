@@ -41,6 +41,9 @@
 		--ring: 215 20.2% 65.1%;
 
 		--radius: 0.5rem;
+
+		--romanum: 104 15 15;
+		--romanum-foreground: 73 10 53;
 	}
 
 	.dark {
