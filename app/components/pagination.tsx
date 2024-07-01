@@ -8,7 +8,6 @@ import { Button } from '#app/components/ui/button'
 export default function Pagination({ totalPostCount }: { totalPostCount: number }) {
 	const pagesToShow = Math.round(totalPostCount / 10);
 	const postsCount = new Array(pagesToShow).fill({})
-	const active = 0;
 
 	return (
 		<Form
