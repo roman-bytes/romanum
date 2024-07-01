@@ -82,6 +82,10 @@ export const links: LinksFunction = () => {
 			rel: 'stylesheet',
 			href: 'https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap',
 		},
+		{
+			rel: 'stylesheet',
+			href: 'https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap'
+		}
 	].filter(Boolean)
 }
 
@@ -253,7 +257,6 @@ function App() {
 									{user ? (
 										<>
 											<Icon name="bell" size="lg" />
-											<Icon name="chat-bubble" size="lg" />
 											<UserDropdown />
 										</>
 									) : (

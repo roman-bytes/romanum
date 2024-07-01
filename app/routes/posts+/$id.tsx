@@ -3,7 +3,7 @@ import { type LoaderFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { formatDistanceToNow } from "date-fns";
 import { prisma } from '#app/utils/db.server.ts';
-import {getUserImgSrc} from "#app/utils/misc.tsx";
+import {getNoteImgSrc, getUserImgSrc} from "#app/utils/misc.tsx";
 
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -68,8 +68,17 @@ export default function PostRoute() {
 
             </div>
             <div className="w-3/4">
-                <h1>{data.post.title}</h1>
-                <div>{data.post.content}</div>
+                {data.post.images.length && (
+                    <div className="h-72 w-full overflow-hidden flex items-center justify-center">
+                        <img src={getNoteImgSrc(data.post.images[0].id)} alt="Post header" />
+                    </div>
+                )}
+                <div className="container mt-10">
+
+                    <h1 className="font-tinos text-romanumDark text-h1">{data.post.title}</h1>
+
+                    <div className="font-sourceSansPro text-romanumDark text-body-lg">{data.post.content}</div>
+                </div>
             </div>
         </div>
 

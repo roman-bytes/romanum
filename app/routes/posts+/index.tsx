@@ -71,14 +71,14 @@ export default function PostsRoute() {
 						<Postcard key={post.id} post={post} />
 					))}
 				</section>
-				<aside className="h-fit w-1/4 overflow-hidden rounded bg-white">
+				<aside className="h-fit w-1/4 overflow-hidden rounded-lg bg-white border">
 					<img src="/family.jpg" alt="Roman Family" />
 					<div className="p-4">
 						<h2 className="text-2xl font-bold">Welcome to Romanum,</h2>
 						<p>
 							Now you may be thinking what is Romanum, you can read more about
 							what the plan and goal of Romanum is on our{' '}
-							<Link to="/about">about page</Link>
+							<Link className="underline" to="/about">about page</Link>
 						</p>
 					</div>
 				</aside>

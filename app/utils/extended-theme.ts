@@ -105,5 +105,6 @@ export const extendedTheme = {
 	},
 	fontFamily: {
 		tinos: ['"Tinos"'],
+		sourceSansPro: ['"Source Sans Pro", sans'],
 	}
 } satisfies Config['theme']
